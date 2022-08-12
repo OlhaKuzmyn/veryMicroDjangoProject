@@ -17,13 +17,13 @@ class RegEx(Enum):
         'only letters min 2 max 100 characters'
     )
     TELEGRAM = (
-        r'/^[@](?:(?=[a-zA-Z\d]{1,20})[A-Za-z]+\d*)$/i',
+        r'^[@](?:(?=[a-zA-Z\d]{1,20})[A-Za-z]+\d*)$',
         [
             'telegram username must begin with @'
         ]
     )
     DISCORD = (
-        r'/[\p{L}\d\s#]/u',
+        r'^[@](?:(?=[a-zA-Z\d]{1,20})[A-Za-z]+\d*)$',
         [
             'discord username must begin with #'
         ]
