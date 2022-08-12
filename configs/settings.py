@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
-
-from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,6 +28,7 @@ DEBUG = True if os.environ.get('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'users.UserModel'
 
 # Application definition
 
@@ -43,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     "rest_framework_simplejwt.token_blacklist",
+
+    # Apps
+    'apps.users'
 ]
 
 MIDDLEWARE = [
