@@ -5,6 +5,8 @@ from django.db import transaction
 
 from rest_framework.serializers import ModelSerializer, ValidationError
 
+from core.services.email_service import EmailService
+
 from .models import ProfileModel, UserModel
 
 UserModel: Type[UserModel] = get_user_model()
@@ -45,5 +47,5 @@ class UserSerializer(ModelSerializer):
         profile = validated_data.pop('profile')
         user = UserModel.objects.create_user(**validated_data)
         ProfileModel.objects.create(**profile, user=user)
-        # EmailService.re
+        EmailService.register_email(user)
         return user
