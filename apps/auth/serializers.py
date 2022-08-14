@@ -9,11 +9,11 @@ class EmailSerializer(ModelSerializer):
     class Meta:
         model = UserModel
         fields = ('email',)
-        # extra_kwargs = {
-        #     'email': {
-        #         'validators': []
-        #     }
-        # }
+        extra_kwargs = {
+            'email': {
+                'validators': []
+            }
+        }
 
 
 class ResetPasswordSerializer(ModelSerializer):

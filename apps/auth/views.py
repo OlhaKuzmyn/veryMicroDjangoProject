@@ -35,3 +35,19 @@ class CheckEmailView(GenericAPIView):
         user = get_object_or_404(UserModel, email=user_email)
         EmailService.reset_password(user)
         return Response(status.HTTP_200_OK)
+
+
+class ResetPasswordView(GenericAPIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, *args, **kwargs):
+        data = self.request.data
+        print(data)
+        serializer = ResetPasswordSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        token = kwargs.get('token')
+        user = JwtService.validate_token(token, RecoveryToken)
+        print(serializer.data.get('password'))
+        user.set_password(serializer.data.get('password'))
+        user.save()
+        return Response(status.HTTP_200_OK)

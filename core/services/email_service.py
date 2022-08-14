@@ -19,7 +19,7 @@ class EmailService:
     @classmethod
     def register_email(cls, user):
         token = JwtService.create_token(user, ActivateToken)
-        url = f'{os.environ.get("FRONTEND_URL")}/reset/{token}'
+        url = f'{os.environ.get("FRONTEND_URL")}/activate/{token}'
         cls._send_email(user.email, TemplateEnum.REGISTER.value, {'name': user.profile.name, 'link': url}, 'Register')
 
     @classmethod
