@@ -11,7 +11,7 @@ class EmailSerializer(ModelSerializer):
         fields = ('email',)
         extra_kwargs = {
             'email': {
-                'validators': []
+                'validators': []    # turns off validators
             }
         }
 
