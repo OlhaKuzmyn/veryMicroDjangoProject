@@ -8,6 +8,10 @@ djangorestframework = "*"
 mysqlclient = "*"
 django-dotenv = "*"
 djangorestframework-simplejwt = "*"
+celery = "*"
+redis = "*"
+django-celery-results = "*"
+django-celery-beat = "*"
 
 [dev-packages]
 isort = "*"

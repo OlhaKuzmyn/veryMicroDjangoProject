@@ -3,8 +3,8 @@ import os
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 
-from core.enums.template_enum import TemplateEnum
-from core.services.jwt_service import ActivateToken, JwtService, RecoveryToken
+from enums.template_enum import TemplateEnum
+from services.jwt_service import ActivateToken, JwtService, RecoveryToken
 
 
 class EmailService:

@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
-from core.enums.error_enum import ErrorEnum
+from enums.error_enum import ErrorEnum
 
 
 def custom_exception_handler(exc: Exception, context: dict) -> Response:
