@@ -3,12 +3,14 @@ import os
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 
-from core_temp.enums.template_enum import TemplateEnum
-from core_temp.services.jwt_service import ActivateToken, JwtService, RecoveryToken
+from core.enums.template_enum import TemplateEnum
+from core.services.jwt_service import ActivateToken, JwtService, RecoveryToken
+from configs.celery import app
 
 
 class EmailService:
     @staticmethod
+    @app.task
     def _send_email(to: str, template_name: str, context: dict, subject='') -> None:
         template = get_template(template_name)
         html_content = template.render(context)

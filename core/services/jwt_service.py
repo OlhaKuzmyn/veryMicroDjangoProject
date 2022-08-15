@@ -6,8 +6,8 @@ from rest_framework.generics import get_object_or_404
 
 from rest_framework_simplejwt.tokens import BlacklistMixin, Token
 
-from core_temp.enums.action_enums import ActionEnum
-from core_temp.exceptions.jwt_exception import JwtException
+from core.enums.action_enums import ActionEnum
+from core.exceptions.jwt_exception import JwtException
 
 UserModel = get_user_model()
 

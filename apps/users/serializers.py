@@ -5,7 +5,7 @@ from django.db import transaction
 
 from rest_framework.serializers import ModelSerializer, ValidationError
 
-from core_temp.services.email_service import EmailService
+from core.services.email_service import EmailService
 
 from .models import ProfileModel, UserModel
 

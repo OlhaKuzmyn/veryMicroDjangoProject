@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
 
     # Apps
+    'core',
     'apps.auth',
     'apps.users'
 ]
