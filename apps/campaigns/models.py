@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from apps.characters.models import CharacterModel
 from apps.games.models import GameModel
 
 UserModel = get_user_model()
@@ -12,7 +13,7 @@ class CampaignModel(models.Model):
         ordering = ['createdAt']
 
     dms = models.ManyToManyField(UserModel, related_name='campaigns')
-    characters = models.ManyToManyField()
+    characters = models.ManyToManyField(CharacterModel, related_name='campaigns')
     games = models.ManyToManyField(GameModel, related_name='games')
     title = models.CharField(max_length=200, validators=[])
     description = models.TextField()
