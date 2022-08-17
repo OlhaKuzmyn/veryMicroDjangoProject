@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     # Apps
     'core',
     'apps.auth',
-    'apps.users'
+    'apps.users',
+    'apps.campaigns',
+    'apps.games',
+    'apps.characters'
 ]
 
 MIDDLEWARE = [

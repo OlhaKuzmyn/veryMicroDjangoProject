@@ -21,7 +21,7 @@ class CharacterModel(models.Model):
             ValidatorEnum.RACE.pattern,
             ValidatorEnum.RACE.msg
         )])
-    dnd_beyond = models.CharField(max_length=300, blank=True, validators=[
+    dnd_beyond = models.URLField(max_length=300, blank=True, validators=[
         RegexValidator(
             ValidatorEnum.BEYOND_URL.pattern,
             ValidatorEnum.BEYOND_URL.msg
@@ -31,6 +31,6 @@ class CharacterModel(models.Model):
             ValidatorEnum.TITLE.pattern,
             ValidatorEnum.TITLE.msg
         )])  # Change to array with existing classes
-    user_id = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='characters')
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='characters')
     createdAt = models.DateTimeField(auto_now=True)
     updatedAt = models.DateTimeField(auto_now_add=True)

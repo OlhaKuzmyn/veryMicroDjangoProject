@@ -5,7 +5,6 @@ from django.db import models
 from core.enums.validator_enums import ValidatorEnum
 
 from apps.characters.models import CharacterModel
-from apps.games.models import GameModel
 
 UserModel = get_user_model()
 
@@ -15,9 +14,8 @@ class CampaignModel(models.Model):
         db_table = 'campaign'
         ordering = ['createdAt']
 
-    dms = models.ManyToManyField(UserModel, related_name='campaigns')
+    dms = models.ManyToManyField(UserModel, related_name='campaigns', blank=True)
     characters = models.ManyToManyField(CharacterModel, related_name='campaigns')
-    games = models.ManyToManyField(GameModel, related_name='games')
     title = models.CharField(max_length=200, validators=[
         RegexValidator(
             ValidatorEnum.TITLE.pattern,
@@ -28,6 +26,6 @@ class CampaignModel(models.Model):
             ValidatorEnum.DESCRIPTION.pattern,
             ValidatorEnum.DESCRIPTION.msg
         )])
+    start_scheduledAt = models.DateTimeField()
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
-    start_scheduledAt = models.DateTimeField()
