@@ -3,7 +3,8 @@ from enum import Enum
 
 class ValidatorEnum(Enum):
     TITLE = (
-        r'^(\w+)([\W+^\s]){2,200}$',
+        # r'^(\w+)([\W+^\s]){2,200}$',
+        r'^[a-zA-Z]{2,100}$',
         "Any letter, symbol, number min 2 max 200"
     )
     RACE = (
@@ -15,7 +16,7 @@ class ValidatorEnum(Enum):
         'invalid url for DnD Beyond character sheet'
     )
     DESCRIPTION = (
-        r'^(\w+)([\W+^\s]){10,3000}$',
+        r'^[a-zA-Z]{10,3000}$',
         "Any letter, symbol, number min 10 max 3000"
     )
 

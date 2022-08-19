@@ -26,13 +26,13 @@ class GameModel(models.Model):
             ValidatorEnum.DESCRIPTION.pattern,
             ValidatorEnum.DESCRIPTION.msg
         )])
-    characters = models.ManyToManyField(CharacterModel, related_name='games')
+    characters = models.ManyToManyField(CharacterModel, related_name='games', blank=True)
     game_type = models.CharField(max_length=200, blank=True, validators=[
         RegexValidator(
             ValidatorEnum.TITLE.pattern,
             ValidatorEnum.TITLE.msg
         )])
-    campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name='games', blank=True, default=None)
+    campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name='games', blank=True, null=True)
     scheduledAt = models.DateTimeField()
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)

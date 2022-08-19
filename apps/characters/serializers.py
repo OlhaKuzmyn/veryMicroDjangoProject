@@ -6,7 +6,7 @@ from .models import CharacterModel
 
 
 class CharacterSerializer(ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = CharacterModel

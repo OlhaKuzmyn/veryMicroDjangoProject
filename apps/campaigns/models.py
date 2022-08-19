@@ -14,8 +14,8 @@ class CampaignModel(models.Model):
         db_table = 'campaign'
         ordering = ['createdAt']
 
-    dms = models.ManyToManyField(UserModel, related_name='campaigns', blank=True)
-    characters = models.ManyToManyField(CharacterModel, related_name='campaigns')
+    dms = models.ManyToManyField(UserModel, related_name='campaigns')
+    characters = models.ManyToManyField(CharacterModel, related_name='campaigns', default=None, blank=True)
     title = models.CharField(max_length=200, validators=[
         RegexValidator(
             ValidatorEnum.TITLE.pattern,
