@@ -9,7 +9,7 @@ class GameSerializer(ModelSerializer):
         model = GameModel
         fields = (
             'id', 'dm', 'title', 'description', 'characters',
-            'game_type', 'scheduledAt', 'createdAt', 'updatedAt'
+            'game_type', 'scheduledAt', 'createdAt', 'updatedAt', 'campaign_id'
         )
         read_only_fields = (
             'id', 'createdAt', 'updatedAt', 'dm'

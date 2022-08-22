@@ -32,7 +32,7 @@ class GameModel(models.Model):
             ValidatorEnum.TITLE.pattern,
             ValidatorEnum.TITLE.msg
         )])
-    campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name='games', blank=True, null=True)
+    campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name='games')
     scheduledAt = models.DateTimeField()
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
