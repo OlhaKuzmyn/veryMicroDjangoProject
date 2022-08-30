@@ -12,6 +12,7 @@ celery = "*"
 redis = "*"
 django-celery-results = "*"
 django-celery-beat = "*"
+django-filter = "*"
 
 [dev-packages]
 isort = "*"

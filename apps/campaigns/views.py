@@ -6,6 +6,7 @@ from core.permissions import IsDM, IsDMOrReadOnly
 
 from apps.games.serializers import GameSerializer
 
+from .filters import CampaignFilter
 from .models import CampaignModel
 from .serializers import CampaignSerializer
 
@@ -14,6 +15,9 @@ class CampaignListCreateView(ListCreateAPIView):
     serializer_class = CampaignSerializer
     queryset = CampaignModel.objects.all()
     permission_classes = (IsDMOrReadOnly,)
+    filterset_class = CampaignFilter
+    # def get_queryset(self):
+    #     self.queryset.filter(start_scheduledAt__year=)
 
     def perform_create(self, serializer):
         user = self.request.user

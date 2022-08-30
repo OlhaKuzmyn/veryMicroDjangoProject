@@ -11,7 +11,7 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'core.handlers.error_handler.custom_exception_handler',
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M",
     # 'DEFAULT_PAGINATION_CLASS': 'core.paginations.page_pagination.PagePagination',
-    # 'DEFAULT_FILTER_BACKENDS': (
-    #     'django_filters.rest_framework.DjangoFilterBackend',
-    # ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
