@@ -44,7 +44,6 @@ class AddGameToCampaign(CreateAPIView):
     permission_classes = (IsDM,)
 
     def perform_create(self, serializer):
-        data = self.request.data
         campaign = self.get_object()
         user = self.request.user
         serializer.save(dm=user, campaign=campaign)
