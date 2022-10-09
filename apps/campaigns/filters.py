@@ -4,9 +4,10 @@ from .models import CampaignModel
 
 
 class CampaignFilter(filters.FilterSet):
-    # campaign_month = filters.DateTimeFilter(field_name='start_scheduledAt', lookup_expr='month')
-    campaign_month = filters.DateTimeFilter(field_name='start_scheduledAt__month')
+    campaign_day = filters.NumberFilter(field_name='start_scheduledAt', lookup_expr='day')
+    campaign_month = filters.NumberFilter(field_name='start_scheduledAt', lookup_expr='month')
+    campaign_year = filters.NumberFilter(field_name='start_scheduledAt', lookup_expr='year')
 
     class Meta:
         model = CampaignModel
-        fields = ('campaign_month',)
+        fields = ('campaign_day', 'campaign_month', 'campaign_year')

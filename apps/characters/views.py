@@ -10,6 +10,10 @@ class CharacterListCreateView(ListCreateAPIView):
     queryset = CharacterModel.objects.all()
     permission_classes = (IsAuthenticated,)
 
+    def get_queryset(self):
+        user = self.request.user
+        return CharacterModel.objects.filter(user=user)
+
     def perform_create(self, serializer):
         user = self.request.user
         serializer.save(user=user)
