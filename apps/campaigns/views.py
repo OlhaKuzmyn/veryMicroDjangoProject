@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListCreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView
 from rest_framework.response import Response
 
 from core.permissions import IsDM, IsDMOrReadOnly
@@ -16,12 +16,26 @@ class CampaignListCreateView(ListCreateAPIView):
     queryset = CampaignModel.objects.all()
     permission_classes = (IsDMOrReadOnly,)
     filterset_class = CampaignFilter
+
     # def get_queryset(self):
     #     self.queryset.filter(start_scheduledAt__year=)
+    # def get_queryset(self):
+    #     self.queryset.filter(title__)
 
     def perform_create(self, serializer):
         user = self.request.user
         serializer.save(dms=[user])
+
+
+class CampaignFilteredView(ListAPIView):
+    serializer_class = CampaignSerializer
+    queryset = CampaignModel.objects.all()
+    permission_classes = (IsDMOrReadOnly,)
+
+    def get_queryset(self):
+        month = self.kwargs.get('month')
+        year = self.kwargs.get('year')
+        return CampaignModel.objects.filter(start_scheduledAt__year=year, start_scheduledAt__month=month)
 
 
 class AddGameToCampaign(CreateAPIView):
