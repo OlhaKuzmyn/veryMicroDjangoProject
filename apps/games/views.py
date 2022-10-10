@@ -1,4 +1,10 @@
-from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView, ListCreateAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    GenericAPIView,
+    ListAPIView,
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 
 from core.permissions import IsDM, IsDMOrReadOnly
 
@@ -25,3 +31,9 @@ class GameFilteredView(ListAPIView):
         month = self.kwargs.get('month')
         year = self.kwargs.get('year')
         return GameModel.objects.filter(scheduledAt__year=year, scheduledAt__month=month)
+
+
+class GameRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    serializer_class = GameSerializer
+    queryset = GameModel.objects.all()
+    permission_classes = (IsDMOrReadOnly,)
