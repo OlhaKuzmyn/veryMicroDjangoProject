@@ -6,7 +6,8 @@ from core.enums.error_enum import ErrorEnum
 
 def custom_exception_handler(exc: Exception, context: dict) -> Response:
     handlers = {
-        'JwtException': _jwt_validate_error
+        'JwtException': _jwt_validate_error,
+        'ScheduleException': _schedule_validate_error
     }
     response = exception_handler(exc, context)
     exc_class = exc.__class__.__name__
@@ -18,3 +19,7 @@ def custom_exception_handler(exc: Exception, context: dict) -> Response:
 
 def _jwt_validate_error(exc: Exception, context: dict) -> Response:
     return Response(ErrorEnum.JWT.msg, ErrorEnum.JWT.code)
+
+
+def _schedule_validate_error(exc: Exception, context: dict) -> Response:
+    return Response(ErrorEnum.SCHEDULE.msg, ErrorEnum.SCHEDULE.code)
