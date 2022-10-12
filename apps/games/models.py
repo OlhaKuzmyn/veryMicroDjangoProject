@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.core.validators import RegexValidator
+from django.core.validators import MaxLengthValidator, MinLengthValidator, RegexValidator
 from django.db import models
 
 from core.enums.validator_enums import ValidatorEnum
@@ -16,22 +16,17 @@ class GameModel(models.Model):
         ordering = ['createdAt']
 
     dm = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='games')
-    title = models.CharField(max_length=200, validators=[
-        RegexValidator(
-            ValidatorEnum.TITLE.pattern,
-            ValidatorEnum.TITLE.msg
-        )])
+    title = models.CharField(max_length=300, validators=[
+        MaxLengthValidator(300)
+    ])
     description = models.TextField(max_length=3000, blank=True, validators=[
-        RegexValidator(
-            ValidatorEnum.DESCRIPTION.pattern,
-            ValidatorEnum.DESCRIPTION.msg
-        )])
+        MaxLengthValidator(3000),
+        MinLengthValidator(20)
+    ])
     characters = models.ManyToManyField(CharacterModel, related_name='games', blank=True)
-    game_type = models.CharField(max_length=200, blank=True, validators=[
-        RegexValidator(
-            ValidatorEnum.TITLE.pattern,
-            ValidatorEnum.TITLE.msg
-        )])
+    game_type = models.CharField(max_length=300, blank=True, validators=[
+        MaxLengthValidator(300)
+    ])
     campaign = models.ForeignKey(CampaignModel, on_delete=models.CASCADE, related_name='games')
     scheduledAt = models.DateTimeField()
     createdAt = models.DateTimeField(auto_now_add=True)
