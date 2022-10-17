@@ -1,12 +1,12 @@
 from rest_framework.serializers import ModelSerializer
 
-from apps.users.serializers import UserSerializer
-
 from .models import CharacterModel
+
+# from apps.users.serializers import UserSerializer
 
 
 class CharacterSerializer(ModelSerializer):
-    user = UserSerializer(read_only=True)
+    # user = UserSerializer(read_only=True)
 
     class Meta:
         model = CharacterModel

@@ -7,6 +7,8 @@ from rest_framework.serializers import ModelSerializer, ValidationError
 
 from core.services.email_service import EmailService
 
+from apps.characters.serializers import CharacterSerializer
+
 from .models import ProfileModel, UserModel
 
 UserModel: Type[UserModel] = get_user_model()
@@ -20,15 +22,18 @@ class ProfileSerializer(ModelSerializer):
 
 class UserSerializer(ModelSerializer):
     profile = ProfileSerializer()
+    characters = CharacterSerializer(many=True, read_only=True)
 
     class Meta:
         model = UserModel
         fields = (
             'id', 'email', 'password', 'is_dm', 'last_login', 'is_superuser',
-            'is_staff', 'is_active', 'profile', 'created_at', 'updated_at'
+            'is_staff', 'is_active', 'profile', 'created_at', 'updated_at', 'characters'
         )
-        read_only_fields = ('id', 'is_staff', 'is_active', 'last_login',
-                            'is_superuser', 'created_at', 'updated_at', 'profile')
+        read_only_fields = (
+            'id', 'is_staff', 'is_active', 'last_login',
+            'is_superuser', 'created_at', 'updated_at', 'profile', 'characters'
+        )
         extra_kwargs = {
             'password': {
                 'write_only': True
