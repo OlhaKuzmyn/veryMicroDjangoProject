@@ -9,7 +9,7 @@ from .models import CampaignModel
 
 class CampaignSerializer(ModelSerializer):
     dms = UserSerializer(many=True, read_only=True)
-    characters = CharacterSerializer(many=True, read_only=True)
+    # characters = CharacterSerializer(many=True, read_only=True)
     games = GameSerializer(many=True, read_only=True)
 
     class Meta:
