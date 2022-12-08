@@ -4,6 +4,11 @@ from rest_framework.permissions import IsAuthenticated
 from .models import CharacterModel
 from .serializers import CharacterSerializer
 
+"""
+    Get current user characters
+    create a new character for current user 
+"""
+
 
 class CharacterListCreateView(ListCreateAPIView):
     serializer_class = CharacterSerializer
@@ -17,6 +22,11 @@ class CharacterListCreateView(ListCreateAPIView):
     def perform_create(self, serializer):
         user = self.request.user
         serializer.save(user=user)
+
+
+"""
+    Get, update, delete character
+"""
 
 
 class CharacterRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):

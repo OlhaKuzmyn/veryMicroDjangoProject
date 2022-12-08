@@ -14,6 +14,11 @@ from .filters import CampaignFilter
 from .models import CampaignModel
 from .serializers import CampaignSerializer
 
+"""
+    Create campaign
+    Get Campaigns
+"""
+
 
 class CampaignListCreateView(ListCreateAPIView):
     serializer_class = CampaignSerializer
@@ -32,7 +37,12 @@ class CampaignListCreateView(ListCreateAPIView):
         serializer.save(dms=[user])
 
 
-class CampaignFilteredView(ListAPIView):
+"""
+    Get only filtered campaigns
+"""
+
+
+class CampaignFilteredView(ListAPIView):        # return and change?
     serializer_class = CampaignSerializer
     queryset = CampaignModel.objects.all()
     permission_classes = (IsDMOrReadOnly,)
@@ -43,10 +53,21 @@ class CampaignFilteredView(ListAPIView):
         return CampaignModel.objects.filter(start_scheduledAt__year=year, start_scheduledAt__month=month)
 
 
+"""
+    Get, Update, Delete campaign
+"""
+
+
 class CampaignRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = CampaignSerializer
     queryset = CampaignModel.objects.all()
     permission_classes = (IsDMOrReadOnly,)
+
+
+"""
+    Create Game
+    Adds Game to a campaign
+"""
 
 
 class AddGameToCampaign(CreateAPIView):
@@ -59,8 +80,11 @@ class AddGameToCampaign(CreateAPIView):
         schedule = datetime.strptime(self.request.data.get('scheduledAt'), "%Y-%m-%d %H:%M").timestamp()
         user = self.request.user
 
+        """
+            game cannot be scheduled before the campaign starts
+        """
+
         if schedule < campaign.start_scheduledAt.timestamp():
             raise ScheduleException()
 
         serializer.save(dm=user, campaign=campaign)
-

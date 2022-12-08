@@ -14,12 +14,21 @@ from .serializers import GameSerializer
 
 # from rest_framework.response import Response
 
+"""
+    Get games
+"""
 
-class GameCreateListView(ListAPIView):
+
+class GameListView(ListAPIView):
     serializer_class = GameSerializer
     queryset = GameModel.objects.all()
     permission_classes = (IsDMOrReadOnly,)
     filterset_class = GameFilter
+
+
+"""
+    Get only filtered games
+"""
 
 
 class GameFilteredView(ListAPIView):
@@ -31,6 +40,11 @@ class GameFilteredView(ListAPIView):
         month = self.kwargs.get('month')
         year = self.kwargs.get('year')
         return GameModel.objects.filter(scheduledAt__year=year, scheduledAt__month=month)
+
+
+"""
+    Get, update, delete a game
+"""
 
 
 class GameRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):

@@ -9,6 +9,11 @@ from .serializers import UserSerializer
 UserModel = get_user_model()
 
 
+"""
+    Create User
+"""
+
+
 class UserCreateView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = UserModel.objects.all()

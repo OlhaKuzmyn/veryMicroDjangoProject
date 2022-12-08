@@ -12,6 +12,10 @@ from .serializers import EmailSerializer, ResetPasswordSerializer
 
 UserModel = get_user_model()
 
+"""
+    Activate profile after creating user
+"""
+
 
 class ActivateUserView(GenericAPIView):
     permission_classes = (AllowAny,)
@@ -22,6 +26,11 @@ class ActivateUserView(GenericAPIView):
         user.is_active = True
         user.save()
         return Response(status=status.HTTP_200_OK)
+
+
+"""
+    First step of resetting password 
+"""
 
 
 class CheckEmailView(GenericAPIView):
@@ -35,6 +44,12 @@ class CheckEmailView(GenericAPIView):
         user = get_object_or_404(UserModel, email=data['email'])
         EmailService.reset_password(user)
         return Response(status.HTTP_200_OK)
+
+
+"""
+    Second step of resetting password 
+    creating a new password
+"""
 
 
 class ResetPasswordView(GenericAPIView):
