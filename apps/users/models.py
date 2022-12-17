@@ -1,5 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.core.validators import RegexValidator
+from django.core.validators import MaxLengthValidator, RegexValidator
 from django.db import models
 
 from apps.users.managers import UserManager
@@ -30,6 +30,9 @@ class ProfileModel(models.Model):
     class Meta:
         db_table = 'profile'
 
+    display_name = models.CharField(max_length=200, validators=[
+        MaxLengthValidator(200)
+    ])
     name = models.CharField(max_length=100, validators=[RegexValidator(RegEx.NAME.pattern, RegEx.NAME.msg)])
     surname = models.CharField(max_length=100, validators=[RegexValidator(RegEx.NAME.pattern, RegEx.NAME.msg)])
     tg_acc = models.CharField(max_length=100, validators=[RegexValidator(RegEx.TELEGRAM.pattern, RegEx.TELEGRAM.msg)])

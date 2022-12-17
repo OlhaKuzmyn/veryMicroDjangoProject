@@ -19,6 +19,10 @@ class UserCreateView(CreateAPIView):
     queryset = UserModel.objects.all()
     permission_classes = (AllowAny,)
 
+    # def perform_create(self, serializer):
+    #     prof = self.request.data.get('profile')
+    #     serializer.save(display_name=" ".join([prof.get('name'), prof.get('surname')]))
+
 
 class UserListCreateView(ListCreateAPIView):  # ?
     serializer_class = UserSerializer

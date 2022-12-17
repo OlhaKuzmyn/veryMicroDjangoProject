@@ -19,6 +19,10 @@ class ProfileSerializer(ModelSerializer):
         model = ProfileModel
         exclude = ('user',)
 
+    def create(self, validated_data):
+        print(validated_data)
+
+
 
 class UserSerializer(ModelSerializer):
     profile = ProfileSerializer()
@@ -39,6 +43,12 @@ class UserSerializer(ModelSerializer):
                 'write_only': True
             }
         }
+
+    def create(self, validated_data):
+        print(validated_data)
+
+    def update(self, instance, validated_data):
+        print(validated_data)
 
     def validate(self, attrs):
         email = attrs['email']
