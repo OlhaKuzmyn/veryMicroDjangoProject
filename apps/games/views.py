@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.generics import (
     CreateAPIView,
     GenericAPIView,
@@ -9,6 +10,7 @@ from rest_framework.generics import (
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from core.exceptions.char_duplicate_exception import CharacterDuplicateException
 from core.permissions import IsDM, IsDMOrReadOnly
 
 from apps.characters.models import CharacterModel
@@ -72,5 +74,10 @@ class AddCharacterToGameView(GenericAPIView):
         char_id = self.request.data.get('char_id')
         game = self.get_object()
         new_character = get_object_or_404(CharacterModel, pk=char_id)
+        """
+            Character cannot be added twice
+        """
+        if game.characters.filter(pk=char_id).exists():
+            raise CharacterDuplicateException
         game.characters.add(new_character)
         return Response(self.serializer_class(game).data)

@@ -1,0 +1,2 @@
+class CharacterDuplicateException(Exception):
+    pass
