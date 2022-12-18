@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.generics import (
     CreateAPIView,
     GenericAPIView,
+    ListAPIView,
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
     UpdateAPIView,
@@ -50,3 +51,15 @@ class UpdateProfileView(UpdateAPIView):
 
     def get_object(self):
         return self.request.user.profile
+
+
+"""
+    Get logged in User
+"""
+
+
+class GetUserView(ListAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return UserModel.objects.filter(id=self.request.user.id)
