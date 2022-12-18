@@ -8,7 +8,7 @@ def custom_exception_handler(exc: Exception, context: dict) -> Response:
     handlers = {
         'JwtException': _jwt_validate_error,
         'ScheduleException': _schedule_validate_error,
-        'CharacterDuplicateException': _char_duplicate_validate_error,
+        'CharacterAlreadyAddedException': _char_added_validate_error,
         'CampaignOverException': _campaign_over_validate_error,
     }
     response = exception_handler(exc, context)
@@ -27,8 +27,8 @@ def _schedule_validate_error(exc: Exception, context: dict) -> Response:
     return Response(ErrorEnum.SCHEDULE.msg, ErrorEnum.SCHEDULE.code)
 
 
-def _char_duplicate_validate_error(exc: Exception, context: dict) -> Response:
-    return Response(ErrorEnum.CHAR_DUPLICATE.msg, ErrorEnum.CHAR_DUPLICATE.code)
+def _char_added_validate_error(exc: Exception, context: dict) -> Response:
+    return Response(ErrorEnum.CHAR_ADDED.msg, ErrorEnum.CHAR_ADDED.code)
 
 
 def _campaign_over_validate_error(exc: Exception, context: dict) -> Response:

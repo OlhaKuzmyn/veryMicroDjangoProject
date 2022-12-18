@@ -1,0 +1,2 @@
+class CharacterAlreadyAddedException(Exception):
+    pass

@@ -10,7 +10,7 @@ from rest_framework.generics import (
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from core.exceptions.char_duplicate_exception import CharacterDuplicateException
+from core.exceptions.char_already_added_exception import CharacterAlreadyAddedException
 from core.permissions import IsDM, IsDMOrReadOnly
 
 from apps.characters.models import CharacterModel
@@ -71,13 +71,14 @@ class AddCharacterToGameView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
 
     def patch(self, *args, **kwargs):
+        user_id = self.request.user.id
         char_id = self.request.data.get('char_id')
         game = self.get_object()
         new_character = get_object_or_404(CharacterModel, pk=char_id)
         """
-            Character cannot be added twice
+            A user can add character only once
         """
-        if game.characters.filter(pk=char_id).exists():
-            raise CharacterDuplicateException
+        if game.characters.filter(user_id=user_id).exists():
+            raise CharacterAlreadyAddedException
         game.characters.add(new_character)
         return Response(self.serializer_class(game).data)

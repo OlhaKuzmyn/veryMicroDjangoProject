@@ -1,2 +1,0 @@
-class CharacterDuplicateException(Exception):
-    pass
