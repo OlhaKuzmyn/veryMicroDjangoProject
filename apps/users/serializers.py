@@ -17,11 +17,11 @@ UserModel: Type[UserModel] = get_user_model()
 class ProfileSerializer(ModelSerializer):
     class Meta:
         model = ProfileModel
+        read_only_fields = ('id',)
         exclude = ('user',)
 
-    def create(self, validated_data):
-        print(validated_data)
-
+    # def create(self, validated_data):
+    #     print(validated_data)
 
 
 class UserSerializer(ModelSerializer):
@@ -44,11 +44,11 @@ class UserSerializer(ModelSerializer):
             }
         }
 
-    def create(self, validated_data):
-        print(validated_data)
-
-    def update(self, instance, validated_data):
-        print(validated_data)
+    # def create(self, validated_data):
+    #     print(validated_data)
+    #
+    # def update(self, instance, validated_data):
+    #     print(validated_data)
 
     def validate(self, attrs):
         email = attrs['email']
