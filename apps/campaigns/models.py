@@ -22,5 +22,6 @@ class CampaignModel(models.Model):
         MinLengthValidator(20)
     ])
     start_scheduledAt = models.DateTimeField()
+    is_ongoing = models.BooleanField(default=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)

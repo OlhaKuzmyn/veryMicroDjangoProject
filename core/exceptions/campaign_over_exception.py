@@ -1,0 +1,2 @@
+class CampaignOverException(Exception):
+    pass

@@ -5,6 +5,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIVie
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from core.exceptions.campaign_over_exception import CampaignOverException
 from core.exceptions.schedule_exception import ScheduleException
 from core.permissions import IsDM, IsDMOrReadOnly
 
@@ -42,7 +43,7 @@ class CampaignListCreateView(ListCreateAPIView):
 """
 
 
-class CampaignFilteredView(ListAPIView):        # return and change?
+class CampaignFilteredView(ListAPIView):  # return and change?
     serializer_class = CampaignSerializer
     queryset = CampaignModel.objects.all()
     permission_classes = (IsDMOrReadOnly,)
@@ -79,6 +80,13 @@ class AddGameToCampaign(CreateAPIView):
         campaign = self.get_object()
         schedule = datetime.strptime(self.request.data.get('scheduledAt'), "%Y-%m-%d %H:%M").timestamp()
         user = self.request.user
+
+        """
+            Cannot add game to the campaign that's already over
+        """
+
+        if not campaign.is_ongoing:
+            raise CampaignOverException
 
         """
             game cannot be scheduled before the campaign starts
