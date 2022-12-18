@@ -76,7 +76,7 @@ class AddCharacterToGameView(GenericAPIView):
         game = self.get_object()
         new_character = get_object_or_404(CharacterModel, pk=char_id)
         """
-            A user can add character only once
+            User can add character only once
         """
         if game.characters.filter(user_id=user_id).exists():
             raise CharacterAlreadyAddedException
