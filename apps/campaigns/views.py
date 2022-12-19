@@ -74,6 +74,11 @@ class CampaignRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsDMOrReadOnly,)
 
 
+"""
+    Add another DM to campaign
+"""
+
+
 class AddDMToCampaignView(GenericAPIView):
     queryset = CampaignModel.objects.all()
     serializer_class = CampaignSerializer
@@ -87,7 +92,6 @@ class AddDMToCampaignView(GenericAPIView):
             campaign.dms.add(new_dm)
             return Response(self.serializer_class(campaign).data)
         raise UserIsNotADMException
-
 
 
 """
