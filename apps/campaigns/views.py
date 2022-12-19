@@ -1,15 +1,24 @@
 from datetime import datetime
 
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    GenericAPIView,
+    ListAPIView,
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+    get_object_or_404,
+)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from core.exceptions.campaign_over_exception import CampaignOverException
 from core.exceptions.schedule_exception import ScheduleException
+from core.exceptions.user_not_dm_exception import UserIsNotADMException
 from core.permissions import IsDM, IsDMOrReadOnly
 
 from apps.games.serializers import GameSerializer
+from apps.users.models import UserModel
 
 from .filters import CampaignFilter
 from .models import CampaignModel
@@ -63,6 +72,22 @@ class CampaignRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = CampaignSerializer
     queryset = CampaignModel.objects.all()
     permission_classes = (IsDMOrReadOnly,)
+
+
+class AddDMToCampaignView(GenericAPIView):
+    queryset = CampaignModel.objects.all()
+    serializer_class = CampaignSerializer
+
+    def patch(self, *args, **kwargs):
+        user = self.request.user
+        campaign = self.get_object()
+        user_id = kwargs.get('user_id')
+        new_dm = get_object_or_404(UserModel, pk=user_id)
+        if new_dm.is_dm and user.is_dm:
+            campaign.dms.add(new_dm)
+            return Response(self.serializer_class(campaign).data)
+        raise UserIsNotADMException
+
 
 
 """

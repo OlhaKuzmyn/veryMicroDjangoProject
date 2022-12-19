@@ -1,0 +1,2 @@
+class UserIsNotADMException(Exception):
+    pass

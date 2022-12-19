@@ -10,6 +10,7 @@ def custom_exception_handler(exc: Exception, context: dict) -> Response:
         'ScheduleException': _schedule_validate_error,
         'CharacterAlreadyAddedException': _char_added_validate_error,
         'CampaignOverException': _campaign_over_validate_error,
+        'UserIsNotADMException': _user_not_dm_validate_error,
     }
     response = exception_handler(exc, context)
     exc_class = exc.__class__.__name__
@@ -33,3 +34,7 @@ def _char_added_validate_error(exc: Exception, context: dict) -> Response:
 
 def _campaign_over_validate_error(exc: Exception, context: dict) -> Response:
     return Response(ErrorEnum.CAMPAIGN_OVER.msg, ErrorEnum.CAMPAIGN_OVER.code)
+
+
+def _user_not_dm_validate_error(exc: Exception, context: dict) -> Response:
+    return Response(ErrorEnum.USER_NOT_DM.msg, ErrorEnum.USER_NOT_DM.code)
