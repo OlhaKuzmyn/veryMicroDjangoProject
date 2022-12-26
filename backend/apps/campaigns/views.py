@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from rest_framework import status
 from rest_framework.generics import (
     CreateAPIView,
     GenericAPIView,
@@ -9,7 +8,6 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,
     get_object_or_404,
 )
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from core.exceptions.campaign_over_exception import CampaignOverException

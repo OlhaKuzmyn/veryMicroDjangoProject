@@ -1,6 +1,5 @@
 from rest_framework.serializers import ModelSerializer
 
-from apps.characters.serializers import CharacterSerializer
 from apps.games.serializers import GameSerializer
 from apps.users.serializers import UserSerializer
 

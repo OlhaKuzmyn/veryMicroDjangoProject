@@ -3,9 +3,10 @@ import os
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 
+from configs.celery import app
+
 from core.enums.template_enum import TemplateEnum
 from core.services.jwt_service import ActivateToken, JwtService, RecoveryToken
-from configs.celery import app
 
 
 class EmailService:

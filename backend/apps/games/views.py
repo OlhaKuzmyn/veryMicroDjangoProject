@@ -1,17 +1,9 @@
-from rest_framework import status
-from rest_framework.generics import (
-    CreateAPIView,
-    GenericAPIView,
-    ListAPIView,
-    ListCreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-    get_object_or_404,
-)
+from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from core.exceptions.char_already_added_exception import CharacterAlreadyAddedException
-from core.permissions import IsDM, IsDMOrReadOnly
+from core.permissions import IsDMOrReadOnly
 
 from apps.characters.models import CharacterModel
 

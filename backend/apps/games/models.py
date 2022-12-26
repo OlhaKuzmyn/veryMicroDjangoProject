@@ -1,8 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.core.validators import MaxLengthValidator, MinLengthValidator, RegexValidator
+from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.db import models
-
-from core.enums.validator_enums import ValidatorEnum
 
 from apps.campaigns.models import CampaignModel
 from apps.characters.models import CharacterModel

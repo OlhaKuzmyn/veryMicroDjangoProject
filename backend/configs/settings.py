@@ -30,6 +30,11 @@ DEBUG = True if os.environ.get('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    # 'http://localhost:3000',
+    'http://localhost:4200',
+]
+
 AUTH_USER_MODEL = 'users.UserModel'
 
 # Application definition
@@ -71,7 +76,7 @@ ROOT_URLCONF = 'configs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, '../templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
